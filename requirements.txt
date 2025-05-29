@@ -1,0 +1,9 @@
+numpy
+opencv-python
+pyaudio
+scipy
+pillow
+torch
+diffusers  # For later SD integration
+transformers
+accelerate
