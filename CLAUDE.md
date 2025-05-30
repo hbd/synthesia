@@ -9,14 +9,21 @@ Synthesia is a real-time audio-to-visual system that generates reactive visuals 
 ## Common Commands
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Modern setup with uv (recommended)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv sync
+
+# Install with GPU optimizations (RTX A6000)
+uv sync --extra gpu-optimized
 
 # Run basic visualizer
-python audio_visual_prototype.py
+uv run python audio_visual_prototype.py
 
 # Run advanced system (with SD support)
-python audio_visual_sd.py
+uv run python audio_visual_sd_system.py
+
+# Legacy setup (if needed)
+pip install -r requirements.txt
 ```
 
 ## Architecture
