@@ -6,7 +6,7 @@ Simple test to verify the audio-visual system works
 import cv2
 import time
 import numpy as np
-from enhanced_audio_analyzer import EnhancedAudioAnalyzer
+from src.analyzers.enhanced_audio_analyzer import EnhancedAudioAnalyzer
 
 def main():
     print("Testing simple audio-visual display...")

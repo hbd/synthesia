@@ -12,7 +12,7 @@ import threading
 from collections import deque
 from dataclasses import dataclass
 from typing import Optional, List
-from enhanced_audio_analyzer import AudioFeatures
+from .enhanced_audio_analyzer import AudioFeatures
 
 class FileAudioAnalyzer:
     """Analyzes audio files and provides real-time-like streaming of features"""

@@ -10,9 +10,9 @@ import numpy as np
 from typing import Optional, Callable
 import argparse
 
-from enhanced_audio_analyzer import EnhancedAudioAnalyzer, AudioFeatures
-from keyframe_manager import KeyframeManager, Keyframe
-from frame_interpolator import FrameInterpolator
+from ..analyzers.enhanced_audio_analyzer import EnhancedAudioAnalyzer, AudioFeatures
+from ..generators.keyframe_manager import KeyframeManager, Keyframe
+from ..generators.frame_interpolator import FrameInterpolator
 
 class AudioVisualSystem:
     """Main system integrating audio analysis, keyframe generation, and interpolation"""

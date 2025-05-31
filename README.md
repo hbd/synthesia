@@ -2,104 +2,116 @@
 
 Real-time audio analysis and visual generation system that creates reactive visuals from sound input using **Stable Diffusion** and advanced audio processing.
 
-![Demo](output_frames/frame_000000.png)
+![Demo](output/output_frames/frame_000000.png)
 
-## ✨ Features
+## Project Structure
 
-- 🎵 **Audio File Processing**: MP3/WAV input with beat detection
-- 🎨 **AI Visual Generation**: SDXL-Turbo for 50-100ms image generation  
-- 🎬 **Video Output**: Direct MP4 export with customizable resolution
-- ⚡ **GPU Optimized**: RTX A6000 dual-GPU support, <4s model loading
-- 🎯 **Real-time Reactive**: Visuals respond to beats, energy, and frequency
-- 📺 **YouTube Integration**: Built-in audio download from videos
+```
+synthesia/
+├── src/
+│   ├── analyzers/          # Audio analysis components
+│   │   ├── enhanced_audio_analyzer.py    # Real-time audio analysis
+│   │   └── file_audio_analyzer.py        # File-based audio analysis
+│   │
+│   ├── generators/         # Visual generation components
+│   │   ├── keyframe_manager.py           # Keyframe generation and caching
+│   │   ├── frame_interpolator.py         # Audio-reactive interpolation
+│   │   └── stable_diffusion_generator.py # SD/FLUX integration
+│   │
+│   ├── synthesia/         # Main application systems
+│   │   ├── audio_visual_sd_system.py     # Real-time SD system
+│   │   ├── keyframe_interpolation_system.py # Demo without SD
+│   │   └── audio_file_to_video.py        # File to video converter
+│   │
+│   └── utils/             # Utility modules
+│       └── comfyui_integration.py        # ComfyUI custom nodes
+│
+├── run_realtime.py        # Run real-time audio-visual system
+├── run_file_to_video.py   # Convert audio files to videos
+└── run_interpolation_demo.py # Run demo without SD
 
-## 🚀 Quick Start
-
-```bash
-# 1. Setup (one-time)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-git clone https://github.com/your-org/synthesia.git
-cd synthesia
-uv sync --extra gpu-optimized
-
-# 2. Generate video from YouTube
-uv run yt-dlp -x --audio-format mp3 "https://www.youtube.com/watch?v=VIDEO_ID"
-uv run python audio_file_to_video.py *.mp3 --save-video
-
-# 3. Watch result
-vlc *.mp4
 ```
 
-## 📋 Requirements
-
-- **GPU**: NVIDIA RTX 3090/4090/A6000 (12GB+ VRAM)
-- **OS**: Ubuntu 22.04+ or similar Linux
-- **Python**: 3.10+ (auto-managed)
-
-## 🎯 Usage Examples
-
-### Basic Generation
-```bash
-uv run python audio_file_to_video.py song.mp3 --save-video
-```
-
-### High Quality  
-```bash
-uv run python audio_file_to_video.py song.mp3 \
-    --save-video --fps 30 --width 1024 --height 1024
-```
-
-### Fast Preview
-```bash
-uv run python audio_file_to_video.py song.mp3 \
-    --fps 15 --width 512 --height 512 --no-preview
-```
-
-## 🏗️ Architecture
-
-- **Enhanced Audio Analyzer**: FFT analysis, beat detection, energy mapping
-- **Keyframe Manager**: AI-generated keyframes with intelligent caching  
-- **Frame Interpolator**: Smooth 30+ fps transitions between keyframes
-- **Stable Diffusion Integration**: SDXL-Turbo for fast visual generation
-
-## 📖 Documentation
-
-- **[Setup Guide](SETUP_NEW_MACHINE.md)**: Complete installation instructions
-- **[GPU Optimization](SETUP_RTX_A6000.md)**: RTX A6000 performance tuning
-- **[Development Context](CLAUDE.md)**: Technical details and architecture
-
-## 🎬 Sample Output
-
-The system generates AI visuals that react to:
-- **Beat Detection**: New keyframes on musical beats
-- **Energy Levels**: Colors respond to bass/mid/high frequencies  
-- **Tempo**: 123 BPM detection for rhythmic generation
-- **Musical Structure**: Automatic style changes on transitions
-
-## ⚡ Performance
-
-**RTX A6000 Benchmarks:**
-- Model loading: 3-4 seconds
-- 512x512 generation: 50-100ms  
-- 1024x1024 generation: 100-200ms
-- Sustained throughput: 20-30 fps
-
-## 🔧 Development
+## Installation
 
 ```bash
-# Install development dependencies
-uv sync --extra dev
+# Basic installation (procedural generation only)
+pip install -e .
 
-# Run with different models
-uv run python audio_file_to_video.py song.mp3 --sd-model turbo
-uv run python audio_file_to_video.py song.mp3 --sd-model lightning
+# With Stable Diffusion support
+pip install -e ".[sd]"
 
-# Procedural mode (no AI)
-uv run python audio_file_to_video.py song.mp3 --no-sd
+# Development installation
+pip install -e ".[sd,dev]"
 ```
 
----
+## Usage
 
-**Built with:** Python, PyTorch, Diffusers, Librosa, OpenCV, and ❤️
+### Real-time Audio-Visual System
+```bash
+# With Stable Diffusion
+python run_realtime.py
 
-**Optimized for:** NVIDIA RTX A6000, Dual-GPU setups, Production use
+# Without SD (procedural only)
+python run_realtime.py --no-sd
+
+# Custom settings
+python run_realtime.py --fps 60 --width 1920 --height 1080
+```
+
+### Audio File to Video
+```bash
+# Convert MP3/WAV to video
+python run_file_to_video.py input.mp3 --save-video --output output.mp4
+
+# With custom SD model
+python run_file_to_video.py input.wav --sd-model lightning --save-video
+```
+
+### Interpolation Demo
+```bash
+# Run procedural generation demo
+python run_interpolation_demo.py
+```
+
+## Module Import Examples
+
+```python
+# Import analyzers
+from src.analyzers import EnhancedAudioAnalyzer, FileAudioAnalyzer, AudioFeatures
+
+# Import generators
+from src.generators import KeyframeManager, FrameInterpolator, create_sd_generator
+
+# Import main systems
+from src.synthesia import AudioVisualSDSystem, AudioFileToVideoSystem
+
+# Or import everything from src
+from src import (
+    EnhancedAudioAnalyzer, FileAudioAnalyzer,
+    KeyframeManager, FrameInterpolator,
+    AudioVisualSDSystem
+)
+```
+
+## Features
+
+- **Real-time Audio Analysis**: Analyzes audio input for RMS, frequency bands, beat detection, and tempo estimation
+- **Keyframe Generation**: Generates keyframes using either Stable Diffusion or procedural methods
+- **Frame Interpolation**: Smooth transitions between keyframes with audio-reactive effects
+- **Multiple SD Models**: Support for SDXL-Turbo, SDXL-Lightning, and base models
+- **File Processing**: Convert MP3/WAV files to videos with synchronized visuals
+- **ComfyUI Integration**: Custom nodes for ComfyUI workflows
+
+## Requirements
+
+- Python 3.8+
+- PyAudio (for real-time audio)
+- OpenCV (for video processing)
+- NumPy, SciPy (for audio analysis)
+- Librosa (for file audio processing)
+- PyTorch + Diffusers (optional, for Stable Diffusion)
+
+## License
+
+MIT License

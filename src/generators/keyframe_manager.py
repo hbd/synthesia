@@ -12,7 +12,7 @@ from collections import deque
 from dataclasses import dataclass
 from typing import Optional, List, Callable, Any
 import queue
-from enhanced_audio_analyzer import AudioFeatures
+from ..analyzers.enhanced_audio_analyzer import AudioFeatures
 
 @dataclass
 class Keyframe:
@@ -326,7 +326,7 @@ class KeyframeManager:
 
 if __name__ == "__main__":
     # Test the keyframe manager
-    from enhanced_audio_analyzer import EnhancedAudioAnalyzer
+    from ..analyzers.enhanced_audio_analyzer import EnhancedAudioAnalyzer
     
     print("Testing Keyframe Manager...")
     print("Press Ctrl+C to stop")

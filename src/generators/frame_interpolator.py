@@ -7,8 +7,8 @@ Handles smooth transitions between keyframes with real-time audio modulation
 import numpy as np
 import cv2
 from typing import Optional, Tuple
-from enhanced_audio_analyzer import AudioFeatures
-from keyframe_manager import Keyframe
+from ..analyzers.enhanced_audio_analyzer import AudioFeatures
+from .keyframe_manager import Keyframe
 import time
 
 class FrameInterpolator:
@@ -273,8 +273,8 @@ class FrameInterpolator:
 
 if __name__ == "__main__":
     # Test the frame interpolator
-    from enhanced_audio_analyzer import EnhancedAudioAnalyzer
-    from keyframe_manager import KeyframeManager
+    from ..analyzers.enhanced_audio_analyzer import EnhancedAudioAnalyzer
+    from .keyframe_manager import KeyframeManager
     
     print("Testing Frame Interpolator...")
     print("Press Ctrl+C to stop")

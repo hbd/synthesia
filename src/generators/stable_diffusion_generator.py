@@ -25,7 +25,7 @@ except ImportError:
     print("Warning: diffusers not installed. Run: pip install diffusers")
     DIFFUSERS_AVAILABLE = False
 
-from enhanced_audio_analyzer import AudioFeatures
+from ..analyzers.enhanced_audio_analyzer import AudioFeatures
 
 class StableDiffusionGenerator:
     """Fast Stable Diffusion generator optimized for real-time keyframe generation"""
@@ -255,7 +255,7 @@ def sd_keyframe_generator(features: AudioFeatures, prompt: str, generator=None) 
 if __name__ == "__main__":
     # Test SD generation
     import cv2
-    from enhanced_audio_analyzer import EnhancedAudioAnalyzer
+    from ..analyzers.enhanced_audio_analyzer import EnhancedAudioAnalyzer
     
     print("Testing Stable Diffusion integration...")
     

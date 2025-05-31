@@ -12,13 +12,13 @@ import traceback
 import os
 from typing import Optional
 
-from file_audio_analyzer import FileAudioAnalyzer
-from keyframe_manager import KeyframeManager, Keyframe
-from frame_interpolator import FrameInterpolator
+from ..analyzers.file_audio_analyzer import FileAudioAnalyzer
+from ..generators.keyframe_manager import KeyframeManager, Keyframe
+from ..generators.frame_interpolator import FrameInterpolator
 
 # Import SD generator with fallback
 try:
-    from stable_diffusion_generator import create_sd_generator, StableDiffusionGenerator
+    from ..generators.stable_diffusion_generator import create_sd_generator, StableDiffusionGenerator
     SD_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: Stable Diffusion not available: {e}")
